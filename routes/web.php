@@ -26,7 +26,7 @@ Route::get('/', function () {
     return view('Homepage', [
         'title' => 'Home'
     ]);
-});
+})->name('home');
 
 
 

@@ -44,7 +44,7 @@
                    use App\Models\Transaction;
                    use Illuminate\Support\Facades\Auth;
 
-                   $status = boolval(Transaction::all()->pluck('user_id', Auth::user()->id)->first());
+                   $status = boolval(Transaction::all()->where('user_id', Auth::user()->id)->first());
                 ?>
                 @if ($status)
                     <a href="/checkout" class="btn btn-outline-success w-100 mt-3">Go To Checkout</a>

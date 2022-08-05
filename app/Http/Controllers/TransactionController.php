@@ -20,7 +20,7 @@ class TransactionController extends Controller
     public function store(storeTransactionRequest $request){
         // dd(boolval(Transaction::all()->pluck('user_id', Auth::user()->id)->first()));
 
-        if (boolval(Transaction::all()->pluck('user_id', Auth::user()->id)->first())){
+        if (boolval(Transaction::all()->where('user_id', Auth::user()->id)->first())){
             return back()->with('error', 'Pesanan anda masih di proses mohon jangan memesan lagi');
         } else {
             $tr = new Transaction;
@@ -95,7 +95,7 @@ class TransactionController extends Controller
 
     public function buktiBayarAdmin()
     {
-        $transaction = Transaction::latest()->get();
+        $transaction = Transaction::latest()->paginate(10);
 
         return view('checkout.adminDet', compact('transaction'), [
             'title' => 'Detail Bayar'

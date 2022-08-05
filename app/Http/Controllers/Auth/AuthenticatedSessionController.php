@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Transaction;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,13 +29,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        
         $request->authenticate();
-
+        
         $request->session()->regenerate();
-
+        
+        $status =Transaction::where('user_id', auth()->user()->id)->pluck('status')->first();
+        
         if (Auth::user()->level_user == 'admin'){
             return redirect()->intended(RouteServiceProvider::HOME);
         } else {
+            if($status == 'unpaid' || $status == 'paid'){
+            return redirect()->intended('/'); 
+            }
             return redirect()->intended('/paket');
         }
 

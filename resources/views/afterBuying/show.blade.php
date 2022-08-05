@@ -19,6 +19,7 @@
                     </div>
                 </a>
                 @endforeach
+                {{ $alls->links() }}
             </div>
         </div>
         <div class="row mt-5">

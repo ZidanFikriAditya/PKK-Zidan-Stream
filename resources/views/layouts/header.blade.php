@@ -45,6 +45,9 @@
 
         </li>
         @endif
+        <a class="nav-link" href="/home">
+              Home
+        </a>
           
           
           {{-- Logout --}}

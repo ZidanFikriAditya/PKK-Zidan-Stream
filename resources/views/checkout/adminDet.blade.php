@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Category') }}
-        </h2>
+        <div class="d-flex">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Category') }}
+            </h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight ms-auto bg-warning p-1 rounded " style="cursor: pointer" id="print" onclick="myFunction()">
+                {{ __('Print') }}
+            </h2>
+        </div>
+        
     </x-slot>
     <table class="table table-striped-columns">
         <tr>
@@ -41,5 +47,11 @@
                 @endif
             </tr>
         @endforeach
+        {{ $transaction->links() }}
     </table>
+    <script>
+        function myFunction(){
+            window.print()
+        }
+    </script>
 </x-app-layout>

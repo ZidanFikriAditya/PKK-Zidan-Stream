@@ -39,7 +39,7 @@
                         @endif
                     </div>
                     <div class="row mt-5">
-                        <div class="col rounded bg-warning text-black" onclick="myFunction()" id="print" >
+                        <div class="col rounded bg-warning text-black" onclick="myFunction()" style="cursor: pointer" id="print" >
                             <i class="bi bi-printer"></i>
                             Print
                         </div>
