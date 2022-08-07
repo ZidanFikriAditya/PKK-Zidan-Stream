@@ -8,9 +8,8 @@
             Category
           </button>
           <ul class="dropdown-menu">
-            @foreach ($category as $ctg)
-                
-            <li><a class="dropdown-item" href="see/{{ $ctg->id }}">{{ $ctg->name }}</a></li>
+            @foreach ($categories as $ctg)                
+            <li><a class="dropdown-item" href="{{ $ctg->id }}">{{ $ctg->name }}</a></li>
             @endforeach
           </ul>
         </div>
@@ -19,20 +18,19 @@
     <div class="row justify-content-center ">
 
 
-        @foreach ($data as $dt)
+        @foreach ($film as $dt)
         <div class="col-md-3">
             <div class="card shadow-sm" style="width: 16rem;">
                 <img src="{{ asset('storage/thumbnail/' . $dt->thumbnail) }}" height="200px" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ $dt->title }}</h5>
                   <p class="card-text">Durasi : {{ $dt->durasi }}</p>
-                  <small>Tags : {{ $dt->category->name }}</small>
                   <a href="/home/{{ $dt->id }}" class="btn btn-primary">Go somewhere</a>
                 </div>
               </div>
         </div>
         @endforeach
-        {{ $data->links() }}
+        {{ $film->links() }}
     </div>
 </div>
     

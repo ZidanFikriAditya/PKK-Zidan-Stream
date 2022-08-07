@@ -63,8 +63,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('detail-trans/admin-view', [TransactionController::class, 'buktiBayarAdmin'])->name('dtl_admin')->can('admin');
 
     Route::resource('home', HomeController::class);
+    Route::get('see/{id}', [HomeController::class, 'see']);
+    Route::post('destroy-langganan/{id}', [TransactionController::class, 'destroy']);
 });
 
-Route::post('callback', [TripayCallbackController::class, 'handle']);
+Route::post('callback', [TripayCallbackController::class, 'handle']);  
 
 require __DIR__.'/auth.php';

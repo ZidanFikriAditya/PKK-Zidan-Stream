@@ -10,74 +10,86 @@
         use App\Models\Category;
         use App\Models\Transaction;
         use Illuminate\Support\Facades\Auth;
+        use Carbon\Carbon;
         
         if(boolval(Auth::user()) == 'true'){
           $category = Category::get();
-        $transaction = Transaction::where('user_id', auth()->user()->id);
+          $transaction = Transaction::where('user_id', auth()->user()->id);
+        }
+        
+        $tgl =  Carbon::now()->format('Y-m-d');
+        
+        if(boolval(Auth::user()) == 'true'){
+          $expired = Transaction::where('user_id', auth()->user()->id); 
         }
         ?>
         @auth
         
         {{-- Category --}}
-        @if ($transaction->pluck('status')->first() == 'paid')
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
-          </a>
-          <ul class="dropdown-menu">
-            @foreach ($category as $ctg)
-            
-            <li><a class="dropdown-item" href="#">{{ $ctg->name }}</a></li>
-            
-            @endforeach
-        @else
-        <li class="nav-item dropdown">
-          @if (boolval($transaction))
-          <a class="nav-link" href="/transaction/{{ $transaction->pluck('reference')->first() }}">
-            Checkout
-          </a>
-          
-          @else
-          <a class="nav-link" href="/paket">
-            Pilih Paket
-          </a>
-          @endif
 
-        </li>
-        @endif
-        <a class="nav-link" href="/home">
-              Home
-        </a>
-          
-          
-          {{-- Logout --}}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ auth()->user()->name }}
-            </a>
-            <ul class="dropdown-menu">
+
+            @can('user')
+            <li class="nav-item dropdown">
+              @if (boolval($transaction->pluck('reference')->first()))
+              <a class="nav-link" href="/transaction/{{ $transaction->pluck('reference')->first() }}">
+                Deatil Bayar
+              </a>
+              @elseif(boolval($transaction->pluck('reference')->first()) == null)
+              <a class="nav-link" href="/checkout">
+                Checkout
+              </a>
+              <a class="nav-link" href="/paket">
+                Pilih Paket
+              </a>
+              @endif
               
-              <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <li><button class="dropdown-item">Logout</button></li>
-                @can('admin')                    
-                <li><a href="/dashboard" class="dropdown-item">Dashboard</a></li>
-                @endcan
-              </form>
-              @else
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Daftar/Masuk
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/login">Login</a></li>
-                  <li><a class="dropdown-item" href="/register">Registerasi</a></li>
-                </ul>
-                @endauth
-                
-              </ul>
             </li>
-          </ul>
+            
+            @endcan
+            
+            @if ($tgl == $expired->pluck('expired')->first())
+            <form action="/destroy-langganan/{{ $expired->pluck('id')->first() }}">
+              @csrf
+              <button class="nav-link" type="submit">
+                Home
+              </button>
+            </form>
+            @else
+            <a class="nav-link" href="/home">
+              Home
+            </a>
+            @endif
+            
+            
+            
+            {{-- Logout --}}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ auth()->user()->name }}
+              </a>
+              <ul class="dropdown-menu">
+                
+                <form action="{{ route('logout') }}" method="post">
+                  @csrf
+                  <li><button class="dropdown-item">Logout</button></li>
+                  @can('admin')                    
+                  <li><a href="/dashboard" class="dropdown-item">Dashboard</a></li>
+                  @endcan
+                </form>
+                
+                  @endauth
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Daftar/Masuk
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/login">Login</a></li>
+                      <li><a class="dropdown-item" href="/register">Registerasi</a></li>
+                    </ul>
+                  
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>

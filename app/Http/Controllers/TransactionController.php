@@ -19,7 +19,7 @@ class TransactionController extends Controller
     
     public function store(storeTransactionRequest $request){
         // dd(boolval(Transaction::all()->pluck('user_id', Auth::user()->id)->first()));
-
+        
         if (boolval(Transaction::all()->where('user_id', Auth::user()->id)->first())){
             return back()->with('error', 'Pesanan anda masih di proses mohon jangan memesan lagi');
         } else {
@@ -32,12 +32,12 @@ class TransactionController extends Controller
         }
         
     }
-
+    
     public function show($reference)
     {
         $tripay = new TripayController;
         $detail = $tripay->detailTransaction($reference);
-
+        
         return view('checkout.detailTrans', [
             'title' => 'Detail Transaksi',
             'detail' => $detail
@@ -49,7 +49,7 @@ class TransactionController extends Controller
         $tripay = new TripayController;
         
         $channels = $tripay->getPaymentChannels();
-
+        
         if(!empty(Transaction::all()->pluck('user_id', Auth::user()->id)->first())){
             return view('checkout.checkout', [
                 'title' => 'Checkout',
@@ -61,15 +61,15 @@ class TransactionController extends Controller
         
         
     }
-        
+    
     public function request(Request $request)
     {
-
+        
         $method = $request->method;
-
+        
         $tripay = new TripayController;
         $transaction = $tripay->getRequestPayment($method);
-
+        
         $up = Transaction::where('user_id', auth()->user()->id)->first();
         $up->reference = $transaction->reference;
         $up->merchant_ref = $transaction->merchant_ref;
@@ -77,28 +77,28 @@ class TransactionController extends Controller
         $up->status = $transaction->status;
         $up->update();
         
-
+        
         return redirect()->route('transaction.show', [
             'reference' => $transaction->reference
         ]);
         
     }
-
-    public function endPackage()
-    {
-        $timezone = 'Asia/Jakarta';
-        $dt = new DateTime('now', new DateTimeZone($timezone));
-        $tgl =  $dt->format('Y-m-d');
-        
-    }
-
-
+    
+    
     public function buktiBayarAdmin()
     {
         $transaction = Transaction::latest()->paginate(10);
-
+        
         return view('checkout.adminDet', compact('transaction'), [
             'title' => 'Detail Bayar'
         ]);
     }    
+    
+    public function destroy($id)
+    {
+        $expired = Transaction::findOrFail($id);
+        $expired->delete();
+        
+        return back()->with('habis', 'Paket anda sudah expired');
+    }
 }

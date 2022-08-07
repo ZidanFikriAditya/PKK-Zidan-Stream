@@ -23,6 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->string('merchant_ref')->nullable();
             $table->integer('amount')->nullable();
             $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
+            $table->date('expired')->nullable();
             $table->timestamps();
         });
     }
