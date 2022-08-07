@@ -48,7 +48,7 @@
             @endcan
             
             @if ($tgl == $expired->pluck('expired')->first())
-            <form action="/destroy-langganan/{{ $expired->pluck('id')->first() }}">
+            <form action="/destroy-langganan/{{ $expired->pluck('id')->first() }}" method="post">
               @csrf
               <button class="nav-link" type="submit">
                 Home
