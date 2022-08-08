@@ -13,6 +13,7 @@
         @endif
         <div class="row">
             <div class="col">
+              
                 <table class="table">
                     <thead>
                       <tr>
@@ -27,7 +28,7 @@
                         @foreach ($films as $f)
                         <tr>
                             <th scope="row">{{ $f->title }}</th>
-                            <td>{{ $f->description }}</td>
+                            <td>{{ Str::limit($f->description,70,' ......') }}</td>
                             <td><img src="{{ asset('storage/thumbnail/' . $f->thumbnail) }}" alt="" srcset="" width="75px"></td>
                             <td>{{ $f->category->name }}</td>
                             <td class="d-flex py-3 pb-">

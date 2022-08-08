@@ -34,10 +34,11 @@
               <a class="nav-link" href="/transaction/{{ $transaction->pluck('reference')->first() }}">
                 Deatil Bayar
               </a>
-              @elseif(boolval($transaction->pluck('reference')->first()) == null)
+              @elseif(boolval($transaction->pluck('reference')->first()) == 'NULL' AND boolval($transaction->first()) > 0)
               <a class="nav-link" href="/checkout">
-                Checkout
+                Checkout 
               </a>
+              @else
               <a class="nav-link" href="/paket">
                 Pilih Paket
               </a>
@@ -50,7 +51,7 @@
             @if ($tgl == $expired->pluck('expired')->first())
             <form action="/destroy-langganan/{{ $expired->pluck('id')->first() }}" method="post">
               @csrf
-              <button class="nav-link" type="submit">
+              <button class="nav-link btn btn-dark" type="submit">
                 Home
               </button>
             </form>
@@ -75,8 +76,7 @@
                   @can('admin')                    
                   <li><a href="/dashboard" class="dropdown-item">Dashboard</a></li>
                   @endcan
-                </form>
-                
+                </form>                
                   @endauth
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

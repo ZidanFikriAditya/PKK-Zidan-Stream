@@ -16,7 +16,7 @@
         </div>
       </div>
     </div> 
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center mt-4 ">
 
 
         @foreach ($data as $dt)
@@ -25,9 +25,9 @@
                 <img src="{{ asset('storage/thumbnail/' . $dt->thumbnail) }}" height="200px" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ $dt->title }}</h5>
-                  <p class="card-text">Durasi : {{ $dt->durasi }}</p>
-                  <small>Tags : {{ $dt->category->name }}</small>
-                  <a href="/home/{{ $dt->id }}" class="btn btn-primary">Go somewhere</a>
+                  <small class="card-text">{{ Str::limit($dt->description, 20, '  ....') }}</small><br>
+                  <small><strong>Tags : </strong>{{ $dt->category->name }}</small><br>
+                  <a href="/home/{{ $dt->id }}" class="btn btn-primary mt-2">See video</a>
                 </div>
               </div>
         </div>

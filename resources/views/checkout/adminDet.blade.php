@@ -30,6 +30,7 @@
             <th class="text-center">
                 Status
             </th>
+            <th class="text-center">#</th>
         </tr>
         @foreach ($transaction as $trans)
             <tr>
@@ -37,7 +38,7 @@
                 <td>{{ $trans->User->name }}</td>
                 <td>{{ $trans->reference }}</td>
                 <td>{{ $trans->merchant_ref }}</td>
-                <td>{{ $trans->amount }}</td>
+                <td>Rp.{{ number_format($trans->amount) }}</td>
                 @if ($trans->status == 'paid')
                 <td class="text-center"><span class="bg-success text-white  p-1 rounded text-uppercase">{{ $trans->status }}</span></td>
                 
@@ -45,6 +46,7 @@
                 <td class="text-center"><span class="bg-danger text-white  p-1 rounded text-uppercase">{{ $trans->status }}</span></td>
                     
                 @endif
+                <td class="text-center"><a class="btn btn-warning" href="/transaction/{{ $trans->reference }}"><i class="bi bi-printer"></i></a></td>
             </tr>
         @endforeach
         {{ $transaction->links() }}

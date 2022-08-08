@@ -44,11 +44,11 @@
                         <label for="exampleFormControlInput3" class="form-label">Durasi</label>
                         <div class="d-flex w-50">
 
-                            <input type="text" class="form-control w-10" name="durasi" id="exampleFormControlInput3" placeholder="">
+                            <input type="text" class="form-control w-10" name="durasi" id="exampleFormControlInput3" max="59" placeholder="Jam">
                             <p class="ms-1 me-1"> : </p>
-                            <input type="text" class="form-control w-10" name="durasi2" id="exampleFormControlInput3" placeholder="">
+                            <input type="text" class="form-control w-10" name="durasi2" id="exampleFormControlInput3" max="59" placeholder="M">
                             <p class="ms-1 me-1"> : </p>
-                            <input type="text" class="form-control w-10" name="durasi3" id="exampleFormControlInput3" placeholder="">
+                            <input type="text" class="form-control w-10" name="durasi3" id="exampleFormControlInput3" max="59" placeholder="S">
 
                         </div>
                     </div>

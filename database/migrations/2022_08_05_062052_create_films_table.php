@@ -17,7 +17,7 @@ class CreateFilmsTable extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('film');
             $table->string('thumbnail')->nullable();
             $table->text('durasi');

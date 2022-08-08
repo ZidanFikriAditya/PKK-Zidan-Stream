@@ -17,9 +17,17 @@
                 
             </div>
             <div class="col-2">
+                @can('admin')
+                <a href="/detail-trans/admin-view" class="btn btn-secondary w-100">
+                    Back
+                </a>
+                @endcan
+                @can('user')
+                    
                 <a href="/" class="btn btn-secondary w-100">
                     Home
                 </a>
+                @endcan
             </div>
         </div>
         <div class="row mt-4">
@@ -32,7 +40,7 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col text-center">
-                        @if ($detail->status == 'paid')
+                        @if ($detail->status == 'PAID')
                         <span class="bg-success text-white rounded pe-1 ps-1">{{ $detail->status }}</span>
                         @else
                         <span class="bg-danger text-white rounded pe-1 ps-1 ">{{ $detail->status }}</span>

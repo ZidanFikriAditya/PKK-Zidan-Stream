@@ -31,19 +31,23 @@ class TripayCallbackController extends Controller
         $reference = $data->reference;
         $status = strtoupper((string) $data->status);
 
+        // expired date
+        $package_id = Transaction::where('reference', $reference)->pluck('package_id')->first();
+        $curdate = DB::table('packages')->where('id', $package_id)->pluck('jangka_waktu')->first();
+        $curdate = Carbon::now()->addDay($curdate)->format('Y-m-d');
         /*
         |--------------------------------------------------------------------------
         | Proses callback untuk closed payment
         |--------------------------------------------------------------------------
         */
         if (1 === (int) $data->is_closed_payment) {
-            $transaction = Transaction::where('unique_ref', $reference)->first();
+            $transaction = Transaction::where('reference', $reference)->first();
 
             if (! $transaction) {
                 return 'No invoice found for this unique ref: ' . $reference;
             }
 
-            $transaction->update(['status' => $status]);
+            $transaction->update(['status' => $status, 'expired' => $curdate]);
             return response()->json(['success' => true]);
         }
 
@@ -53,7 +57,7 @@ class TripayCallbackController extends Controller
         | Proses callback untuk open payment
         |--------------------------------------------------------------------------
         */
-        $transaction = Transaction::where('unique_ref', $reference)
+        $transaction = Transaction::where('reference', $reference)
             ->where('status', 'UNPAID')
             ->first();
 
@@ -64,13 +68,11 @@ class TripayCallbackController extends Controller
         if ((int) $data->total_amount !== (int) $transaction->total_amount) {
             return 'Invalid amount, Expected: ' . $transaction->total_amount . ' - Received: ' . $data->total_amount;
         }
-        $package_id = Transaction::where('user_id', auth()->user()->id)->pluck('package_id')->first();
-        $curdate = DB::table('packages')->where('id', $package_id)->pluck('jangka_waktu')->first();
-        $curdate = Carbon::now()->addDay($curdate)->format('Y-m-d');
+        
 
         switch ($data->status) {
             case 'PAID':
-                $transaction->update(['status' => 'PAID', 'expired' => $curdate]);
+                $transaction->update(['status' => 'PAID']);
                 return response()->json(['success' => true]);
 
             case 'EXPIRED':

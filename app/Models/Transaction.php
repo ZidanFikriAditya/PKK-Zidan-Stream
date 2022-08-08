@@ -9,6 +9,10 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status','expired'
+    ];
+
     public function User(){
         return $this->belongsTo(User::class);
     }

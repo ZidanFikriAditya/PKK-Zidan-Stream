@@ -43,8 +43,13 @@ class FilmController extends Controller
         $extension = $request->file('film')->getClientOriginalExtension();
         // modifikasi
         $nameMod = 'VID' . '_' . time() . '.' . $extension;
+        if(empty($request->durasi)){
+            $durasi1 = '00';
+        } else {
+            $durasi1 = $request->durasi;
+        }
         
-        $durasi = $request->durasi . ':' . $request->durasi2 . ':' . $request->durasi3;
+        $durasi = $durasi1 . ':' . $request->durasi2 . ':' . $request->durasi3;
         
         //Ekstensi
         $ekstensi = $request->file('thumbnail')->getClientOriginalExtension();
@@ -76,13 +81,18 @@ class FilmController extends Controller
     
     public function update(updateFilmRequest $request, $id)
     {
+        if ($request->file('film')){
         $extension = $request->file('film')->getClientOriginalExtension();
         // modifikasi
         $nameMod = 'IMG' . '_' . time() . '.' . $extension;
+        }
+        if ($request->file('thumbnail')){
          //Ekstensi
          $ekstensi = $request->file('thumbnail')->getClientOriginalExtension();
          // modifikasi
          $thumbnail = 'IMG' . '_' . time() . '.' . $ekstensi;
+        }
+        
         
         $film = Film::findOrFail($id);
         $film->title = $request->title;
@@ -101,10 +111,12 @@ class FilmController extends Controller
         }
         $film->durasi = $request->durasi;
         $film->update();
-
+        if ($request->file('film')){
         $request->file('film')->storeAs('film', $nameMod);
+        }
+        if ($request->file('thumbnail')){
         $request->file('thumbnail')->storeAs('thumbnail', $thumbnail);
-
+        }
         return redirect('/show')->with('bisa', 'Berhasil Di update');
     }
 

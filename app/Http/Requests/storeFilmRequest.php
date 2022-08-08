@@ -28,8 +28,8 @@ class storeFilmRequest extends FormRequest
             'description' => 'required|string',
             'film' => 'required|file|mimetypes:video/mp4,video/quicktime,video/quicktime,video/x-ms-wmv',
             'thumbnail' => 'file|mimetypes:image/jpeg,image/png',
-            'durasi' => 'required|string',
-            'durasi2' => 'required|string',
+            'durasi' => 'string',
+            'durasi2' => 'string',
             'durasi3' => 'required|string',
             'id_category' => 'required',
         ];
