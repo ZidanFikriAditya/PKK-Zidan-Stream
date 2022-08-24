@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\Payment\TripayCallbackController;
 use App\Http\Controllers\TransactionController;
+use App\Models\Package;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,8 @@ use Illuminate\Support\Facades\Route;
 // Homepage
 Route::get('/', function () {
     return view('Homepage', [
-        'title' => 'Home'
+        'title' => 'Homepage',
+        'packages' => Package::get()
     ]);
 })->name('home');
 

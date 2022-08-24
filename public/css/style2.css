@@ -1,0 +1,12 @@
+*, body{
+    padding: 0px;
+    margin: 0px;
+}
+
+#package-choose{
+    background-color: white;
+}
+
+#package-choose:hover{
+    background-image: linear-gradient(white, gray);
+}

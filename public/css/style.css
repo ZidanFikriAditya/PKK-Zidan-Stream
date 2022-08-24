@@ -1,0 +1,60 @@
+#container-video {
+
+    width: 100%;
+    
+}
+
+
+#video {
+    padding: 0px;
+    margin: 0px;
+    padding-bottom: 4px;
+    text-decoration: none;
+    color: white;
+}
+#video small  strong{
+    padding-left: 8px;
+}
+
+#video:hover {
+    box-shadow: 0px 0px 9px rgb(255, 166, 0);
+    transition: 0.5s;
+}
+
+footer{
+    background-color: rgb(166, 114, 17);
+    color: white;
+}
+nav a:hover{
+    background-color: rgb(255, 166, 0);
+    transition: 0.5s;
+}
+
+footer a{
+    text-decoration: none;
+    color: rgb(197, 254, 255);
+
+}
+
+footer ul li {
+    color: white;
+}
+
+#box-paket-home{
+    background-color: white;
+}
+
+#show-video-page #show-video{
+    margin: 0px;
+    padding: 0px;
+}
+
+#show-video-page #show-video:hover{
+    box-shadow: 0px 0px 9px rgb(255, 166, 0);
+    transition: 0.5s;
+}
+
+#box-paket-home:hover{
+    transition: 0.5s;
+    background-image: linear-gradient(rgb(255, 83, 83), rgb(100, 100, 100));
+}

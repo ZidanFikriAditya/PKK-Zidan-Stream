@@ -22,12 +22,23 @@
     </button>
   </div>
 
-  <div class="container mt-5">
+  <div class="container mt-5 text-white">
     <div class="row">
         <div class="col-md-9">
             <h3>Segera Berlangganan</h3>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam, maiores nemo fugiat dolores aspernatur animi molestias magnam dolorum, consequuntur officiis sequi saepe optio praesentium temporibus dignissimos. Nam tempora, rerum, pariatur temporibus nesciunt dolores culpa officiis quam atque assumenda sed facilis. Ducimus minus eligendi unde, accusantium temporibus labore voluptatem sequi a non, vero dicta. Saepe earum assumenda labore dolor ex atque ratione aut quis numquam incidunt architecto dolores, voluptate laudantium facilis impedit quia eum blanditiis possimus itaque. Atque ratione sunt ullam est iste! Praesentium distinctio nulla perferendis reprehenderit. Blanditiis esse quibusdam perspiciatis veritatis error ratione doloremque corrupti nemo fugit praesentium autem, dolorem, cum obcaecati ut commodi ullam consequuntur voluptates asperiores repellat explicabo ea. Magnam officiis vel et cum quisquam laboriosam nesciunt quibusdam ipsa minima modi rem blanditiis sed sunt repellat, voluptatum amet eius at eaque ea nemo aperiam eos ipsam iure omnis. Maxime nostrum provident ab magni ullam, nihil optio, laborum et ipsam molestiae eius in modi cum illum reprehenderit! Fugiat labore debitis, qui voluptas ad voluptatem sint laboriosam rerum in quasi. Voluptas cupiditate voluptatibus voluptates corporis sunt similique magni autem. Vero voluptatum explicabo sapiente magni excepturi exercitationem ratione facilis esse iste tempora aperiam dolores, quaerat recusandae saepe, non sit corporis?
-        </div>
+        
+            <div class="row mt-5 justify-content-center" style="text-transform: uppercase">
+              <h4 class="text-center mb-3">Ada 3 Pilihan Paket Yang Tersedia</h4>
+              @foreach ($packages as $package)
+              <div class="col-md-3 text-center me-3 text-black py-3" id="box-paket-home">
+                <h4>{{ $package->name }}</h4>
+                <p>Rp.{{ number_format($package->harga) }}</p>
+              </div>
+              @endforeach
+              <p class="mt-4 text-center">Tunggu apa lagi ? Ayo buruan daftar sekarang!</p>
+            </div>
+          </div>
         <div class="col-md-3">
             <div class="box border shadow p-3">
                 <h3>Sematan</h3>
@@ -36,6 +47,5 @@
         </div>
     </div>
   </div>
-
   
 @endsection

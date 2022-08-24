@@ -12,7 +12,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-4 mt-3 mb-3">
-                                    <a href="/film" class="card shadow " style="width: 18rem;">
+                                    <a href="/film" class="card shadow text-decoration-none" style="width: 18rem;">
                                             <i class="bi bi-person-circle fs-1 ms-3 card-img-top"></i>
                                         <div class="card-body">
                                             <h4><b>Tambah film </b></h4 >
@@ -21,7 +21,7 @@
                                     </a>
                                 </div>
                             <div class="col-lg-4 mt-3 mb-3">
-                                <a href="/show" class="card shadow " style="width: 18rem;">
+                                <a href="/show" class="card shadow text-decoration-none" style="width: 18rem;">
                                     <i class="bi bi-archive fs-1 ms-3 card-img-top"></i>
                                 <div class="card-body">
                                     <h4><b>Lihat Data Film</b></h4 >
@@ -30,7 +30,7 @@
                             </a>
                             </div>
                             <div class="col-lg-4 mt-3 mb-3">
-                                <a href="/category" class="card shadow " style="width: 18rem;">
+                                <a href="/category" class="card shadow text-decoration-none" style="width: 18rem;">
                                     <i class="bi bi-tags fs-1 ms-3 card-img-top"></i>
                                 <div class="card-body">
                                     <h4><b>Category</b></h4 >

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="d-flex">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Category') }}
+                {{ __('Detai Transaksi') }}
             </h2>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight ms-auto bg-warning p-1 rounded " style="cursor: pointer" id="print" onclick="myFunction()">
                 {{ __('Print') }}

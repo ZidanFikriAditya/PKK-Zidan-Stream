@@ -24,7 +24,7 @@
                 @endcan
                 @can('user')
                     
-                <a href="/" class="btn btn-secondary w-100">
+                <a href="/home" class="btn btn-secondary w-100">
                     Home
                 </a>
                 @endcan

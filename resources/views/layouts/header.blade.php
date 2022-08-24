@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
+<nav class="navbar navbar-expand-lg bg-black navbar-dark fixed-top ">
+  <div class="container-fluid ">
+    <a class="navbar-brand ms-3  rounded" href="/"><img src="{{ asset('image/head/logo.png') }}" class="shadow-white" alt="" width="100"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,15 +31,15 @@
             @can('user')
             <li class="nav-item dropdown">
               @if (boolval($transaction->pluck('reference')->first()))
-              <a class="nav-link" href="/transaction/{{ $transaction->pluck('reference')->first() }}">
-                Deatil Bayar
+              <a class="nav-link me-3 rounded" href="/transaction/{{ $transaction->pluck('reference')->first() }}">
+                <i class="bi bi-journal-medical"></i>
               </a>
               @elseif(boolval($transaction->pluck('reference')->first()) == 'NULL' AND boolval($transaction->first()) > 0)
-              <a class="nav-link" href="/checkout">
-                Checkout 
+              <a class="nav-link me-3 rounded" href="/checkout">
+                <i class="bi bi-cart-dash"></i>
               </a>
               @else
-              <a class="nav-link" href="/paket">
+              <a class="nav-link me-3 rounded" href="/paket">
                 Pilih Paket
               </a>
               @endif
@@ -51,13 +51,14 @@
             @if ($tgl == $expired->pluck('expired')->first())
             <form action="/destroy-langganan/{{ $expired->pluck('id')->first() }}" method="post">
               @csrf
-              <button class="nav-link btn btn-dark" type="submit">
-                Home
+              <button class="nav-link btn btn-black me-3" type="submit">
+                <i class="bi bi-house"></i>
               </button>
             </form>
             @else
-            <a class="nav-link" href="/home">
-              Home
+            <a class="nav-link me-3 rounded {{ ($title == 'Home') ? 'active bg-warning' : "" }} 
+            " id="nav-home" href="/home">
+              <i class="bi bi-house"></i>
             </a>
             @endif
             
@@ -65,27 +66,30 @@
             
             {{-- Logout --}}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ auth()->user()->name }}
+              <a class="nav-link dropdown-toggle pe-3 rounded" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->name }}
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu bg-dark">
                 
                 <form action="{{ route('logout') }}" method="post">
                   @csrf
-                  <li><button class="dropdown-item">Logout</button></li>
+                  <li><button class="dropdown-item text-white">Logout</button></li>
                   @can('admin')                    
-                  <li><a href="/dashboard" class="dropdown-item">Dashboard</a></li>
+                  <li><a href="/dashboard" class="dropdown-item text-white">Dashboard</a></li>
                   @endcan
                 </form>                
                   @endauth
+                  @guest
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle rounded" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Daftar/Masuk
                     </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/login">Login</a></li>
-                      <li><a class="dropdown-item" href="/register">Registerasi</a></li>
+                    <ul class="dropdown-menu bg-dark">
+                      <li><a class="dropdown-item text-white" href="/login">Login</a></li>
+                      <li><a class="dropdown-item text-white" href="/register">Registerasi</a></li>
                     </ul>
+                  @endguest
+                  
                   
                 </ul>
               </li>

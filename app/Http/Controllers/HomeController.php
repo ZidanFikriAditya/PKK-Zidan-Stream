@@ -16,12 +16,18 @@ class HomeController extends Controller
         $status = Transaction::where('user_id', auth()->user()->id)->pluck('status')->first();
         $admin = auth()->user()->level_user;
         $category = DB::table('categories')->get();
+        $posts = Film::latest();
+        if (request('search')){
+            $posts->where('title', 'like', '%' . request('search') . '%');
+        }
+
+        // dd($posts);
 
 
         if ($status == 'paid' || $admin == 'admin'){
             return view('afterBuying.index', [
                 'title' => 'Home',
-                'data' => Film::latest()->paginate(10),
+                'data' => $posts->paginate(15),
                 'category' => $category
             ]);
         }else{
@@ -35,7 +41,7 @@ class HomeController extends Controller
     public function show($id)
     {
         $show = Film::findOrFail($id);
-        $all = Film::latest()->paginate(10);
+        $all = Film::latest()->where('id','!=',$id)->paginate(20);
 
         return view('afterBuying.show', [
             'title' => 'Film',
